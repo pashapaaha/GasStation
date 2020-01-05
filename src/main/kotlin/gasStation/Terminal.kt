@@ -9,7 +9,11 @@ class Terminal(
 
     fun service(car: Car): Boolean {
 
+        if(car.request > fill) {
+            return false
+        }
 
+        fill -= car.request
 
         return true
     }
