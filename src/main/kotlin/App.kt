@@ -3,11 +3,8 @@ import gasStation.GasType
 import gasStation.Terminal
 
 fun main() {
-    val terminal = Terminal(1000, GasType.AI98)
     val terminals = GasType.values().map { Terminal(1000, it) }
-    var counter = 0
     while(true) {
-        println("main(). Car #${counter++}")
         val car = addCar() ?: return
         val isSuccess = terminals.find { car.gasType == it.gasType }!!.service(car)
         if (isSuccess) {
@@ -19,7 +16,6 @@ fun main() {
 }
 
 fun addCar(): Car? {
-    println("Добавление машины!")
     println("###")
     val type = inputInt("Тип топлива: ")
     val request = inputInt("Количество:  ")
