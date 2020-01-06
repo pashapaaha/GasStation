@@ -21,10 +21,18 @@ class Terminal(
 
     fun service(car: Car): Boolean {
         println("Terminal.service(): Терминал $gasType начал обслуживание машины $car")
+        attempt(car)
         return when (state) {
             WORKING -> workingHandler(car)
             REFUELING -> refuelingHandler()
             DAMAGE -> damageHandler()
+        }
+    }
+
+    private fun attempt(car: Car) {
+        if (car.request <= 0 || (0..20).random() == 20) {
+            state = DAMAGE
+            println("Terminal.attempt(): Водитель спровоцировал аварию на терминале!")
         }
     }
 
@@ -37,16 +45,23 @@ class Terminal(
         return true
     }
 
-    private fun refuelingHandler(newState: TerminalState = WORKING): Boolean {
+    private fun refuelingHandler(): Boolean {
+        println("Terminal.refuelingHandler(): Терминал $gasType на дозаправке")
+        waitForTimer(WORKING)
+        return false
+    }
+
+    private fun damageHandler(): Boolean {
+        println("Terminal.refuelingHandler(): Терминал $gasType в состоянии ремонта")
+        waitForTimer(REFUELING)
+        return false
+    }
+
+    private fun waitForTimer(newState: TerminalState) {
         if (timer == 0) {
             fill = capacity
             state = newState
         }
         timer--
-        return false
-    }
-
-    private fun damageHandler(): Boolean {
-        return refuelingHandler(REFUELING)
     }
 }
