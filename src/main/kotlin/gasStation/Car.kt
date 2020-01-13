@@ -1,3 +1,3 @@
 package gasStation
 
-class Car(val gasType: GasType, request: Int)
+data class Car(val gasType: GasType, val request: Int)
