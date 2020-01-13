@@ -2,23 +2,18 @@ package console
 
 import gasStation.Car
 import gasStation.GasType
-import gasStation.Terminal
+import gasStation.Station
 
 class ConsoleIO {
     fun startImitation() {
-        val terminals = GasType.values().map { Terminal(1000, it) }
+        val station = Station()
         while (true) {
             val car = createCar()
             if (car == null) {
                 println("ConsoleIO.createCar(): Водитель, пораженный своим невежеством в типах топлива, уехал в слезах")
                 continue
             }
-            val isSuccess = terminals.find { car.gasType == it.gasType }!!.service(car)
-            if (isSuccess) {
-                println("Обслуживание завершилось успешно\n~~~~~~~~~~~~~~~~")
-            } else {
-                println("Морда клиента очень грустная\n~~~~~~~~~~~~~~~~")
-            }
+            station.filling(car)
         }
     }
 
