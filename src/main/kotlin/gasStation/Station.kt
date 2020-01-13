@@ -3,7 +3,7 @@ package gasStation
 class Station(capacity: Int = 1000) {
     private val terminals = GasType.values().map { Terminal(capacity, it) }
 
-    fun filling(car: Car) : Boolean {
+    fun refueling(car: Car) : Boolean {
         val isSuccess = terminals.find { car.gasType == it.gasType }!!.service(car)
         if (isSuccess) {
             println("Обслуживание завершилось успешно\n~~~~~~~~~~~~~~~~")

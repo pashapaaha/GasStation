@@ -13,7 +13,7 @@ class ConsoleIO {
                 println("ConsoleIO.createCar(): Водитель, пораженный своим невежеством в типах топлива, уехал в слезах")
                 continue
             }
-            station.filling(car)
+            station.refueling(car)
         }
     }
 
