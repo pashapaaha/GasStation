@@ -20,7 +20,7 @@ class Terminal(
         }
 
     fun service(car: Car): Boolean {
-        println("Terminal.service(): Терминал $gasType начал обслуживание машины $car")
+        println("Терминал $gasType начал обслуживание машины $car")
         attempt(car)
         return when (state) {
             WORKING -> workingHandler(car)
@@ -32,7 +32,7 @@ class Terminal(
     private fun attempt(car: Car) {
         if (car.request <= 0 || (0..20).random() == 20) {
             state = DAMAGE
-            println("Terminal.attempt(): Водитель спровоцировал аварию на терминале!")
+            println("  Водитель спровоцировал аварию на терминале!")
         }
     }
 
@@ -63,5 +63,15 @@ class Terminal(
             state = newState
         }
         timer--
+    }
+
+    override fun toString(): String {
+        return """
+## Колонка              АИ${gasType.octane}
+## Вместимость бака:    $capacity(мин. $minFill) л.
+## Текущее заполнение:  $fill
+## Состояние:           $state
+#########################################
+        """.trimIndent()
     }
 }

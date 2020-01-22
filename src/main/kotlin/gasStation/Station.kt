@@ -5,11 +5,12 @@ class Station(capacity: Int = 1000) {
 
     fun refueling(car: Car) : Boolean {
         val isSuccess = terminals.find { car.gasType == it.gasType }!!.service(car)
-        if (isSuccess) {
-            println("Обслуживание завершилось успешно\n~~~~~~~~~~~~~~~~")
-        } else {
-            println("Морда клиента очень грустная\n~~~~~~~~~~~~~~~~")
-        }
+        val result = if(isSuccess) "Обслуживание завершилось успешно" else "Клиент остался недоволен"
+        println(result)
         return isSuccess
+    }
+
+    fun print() {
+        terminals.forEach(::println)
     }
 }
